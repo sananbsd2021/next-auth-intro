@@ -1,132 +1,75 @@
 'use client'
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Link from 'next/link'; // Import the Link component from Next.js
 
-export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+const Navbar = () => {
+  // State to manage the navbar's visibility
+  const [nav, setNav] = useState(false);
 
-    return (
-        <nav className="bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <a href="#" className="text-white text-lg font-bold">
-                {/* Logo  <DarkThemeToggle /> */}
-              </a>
-            </div>
-            <div className="-mr-2 flex sm:hidden">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-                <svg
-                  className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="hidden sm:block">
-              <div className="flex space-x-4">
-                <a
-                  href="/"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </a>
-                <a
-                  href="/api/auth/signin"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </a>
-                <a
-                  href="/api/auth/signout"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Logout
-                </a>
-                <a
-                  href="/client"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Client
-                </a>
-                <a
-                  href="/service"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Services
-                </a>
-                <a
-                  href="/contact"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Contact
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        {isOpen && (
-          <div className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Home
-              </a>
-              <a
-                href="/api/auth/signin"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Login
-              </a>
-              <a
-                href="/api/auth/signout"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Logout
-              </a>
-              <a
-                href="/client/news"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                News
-              </a>
-            </div>
-            {/* <DarkThemeToggle /> */}
-          </div>
-        )}
-      </nav>
-    )
-}
+  // Toggle function to handle the navbar's display
+  const handleNav = () => {
+    setNav(!nav);
+  };
 
+  // Array containing navigation items with links
+  const navItems = [
+    { id: 1, text: 'Home', link: '/' },
+    { id: 2, text: 'Company', link: '/company' },
+    { id: 3, text: 'Resources', link: '/resources' },
+    { id: 4, text: 'About', link: '/about' },
+    { id: 5, text: 'Contact', link: '/contact' },
+    { id: 6, text: 'Logout', link: '/api/auth/signout' },
+  ];
+
+  return (
+    <div className='bg-gray-100 flex justify-between 
+    items-center h-24 max-w-[1240px] mx-auto px-4 text-blue-800'>
+      {/* Logo */}
+      <h1 className='w-full text-3xl font-bold text-[#00df9a]'>Nong Berd</h1>
+
+      {/* Desktop Navigation */}
+      <ul className='hidden md:flex'>
+        {navItems.map(item => (
+          <li
+            key={item.id}
+            className='p-3 hover:bg-[#00df9a] rounded-xl m-2 
+            cursor-pointer duration-300 hover:text-black'
+          >
+            <Link href={item.link}>{item.text}</Link>
+          </li>
+        ))}
+      </ul>
+
+      {/* Mobile Navigation Icon */}
+      <div onClick={handleNav} className='block md:hidden'>
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      <ul
+        className={
+          nav
+            ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500'
+            : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]'
+        }
+      >
+        {/* Mobile Logo */}
+        <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>nongberd</h1>
+
+        {/* Mobile Navigation Items */}
+        {navItems.map(item => (
+          <li
+            key={item.id}
+            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+          >
+            <Link href={item.link}>{item.text}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Navbar;

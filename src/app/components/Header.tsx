@@ -1,9 +1,10 @@
 import React from 'react'
+import ImageSlider from './ImageSlider'
 
 const HeaderPage = () => {
   return (
     <div>
-      <h1>Header Page</h1>
+      <ImageSlider />
     </div>
   )
 }
